@@ -1,3 +1,7 @@
 !package-lock.json
 .vite
 node_modules/
+
+# Copied into place by the predev script; source of truth is contract/src/managed/*
+public/keys/
+public/zkir/

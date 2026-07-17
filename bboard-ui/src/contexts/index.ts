@@ -15,3 +15,5 @@
 
 export type { BoardDeployment, DeployedBoardAPIProvider } from './BrowserDeployedBoardManager';
 export * from './DeployedBoardContext';
+export type { AssessmentSubmission } from './BrowserAssessmentManager';
+export * from './AssessmentContext';

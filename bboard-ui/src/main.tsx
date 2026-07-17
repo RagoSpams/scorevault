@@ -20,9 +20,11 @@
  * @packageDocumentation
  */
 import './globals';
+import './styles/global.css';
 
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material';
 import { setNetworkId, NetworkId } from '@midnight-ntwrk/midnight-js-network-id';
 import App from './App';
@@ -30,7 +32,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { theme } from './config/theme';
 import '@midnight-ntwrk/dapp-connector-api';
 import * as pino from 'pino';
-import { DeployedBoardProvider } from './contexts';
+import { DeployedBoardProvider, AssessmentProvider } from './contexts';
 
 const networkId = import.meta.env.VITE_NETWORK_ID as NetworkId;
 // contract address: 0200dbf964f541e1950883f5b2f539b66fd6111e46ce8e6e9551fbdd180114d5dd5b
@@ -48,9 +50,13 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <CssBaseline />
     <ThemeProvider theme={theme}>
-      <DeployedBoardProvider logger={logger}>
-        <App />
-      </DeployedBoardProvider>
+      <BrowserRouter>
+        <DeployedBoardProvider logger={logger}>
+          <AssessmentProvider logger={logger}>
+            <App />
+          </AssessmentProvider>
+        </DeployedBoardProvider>
+      </BrowserRouter>
     </ThemeProvider>
   </React.StrictMode>,
 );
