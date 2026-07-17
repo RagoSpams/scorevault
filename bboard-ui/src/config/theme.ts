@@ -13,28 +13,26 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { createTheme, alpha } from '@mui/material';
-
-const midnightGrey = alpha('#a8a8a8', 0.7);
+import { createTheme } from '@mui/material';
 
 export const theme = createTheme({
   typography: {
-    fontFamily: 'Helvetica',
+    fontFamily: '"Inter", system-ui, -apple-system, "Segoe UI", sans-serif',
     allVariants: {
-      color: 'white',
+      color: '#F8FAFC',
     },
   },
   palette: {
     primary: {
-      main: midnightGrey,
-      light: alpha(midnightGrey, 0.5),
-      dark: alpha(midnightGrey, 0.9),
+      main: '#14B8A6',
+      dark: '#0D9488',
     },
     secondary: {
-      main: '#8c8c8c',
+      main: '#94A3B8',
     },
     background: {
-      default: '#464655',
+      default: '#0F172A',
+      paper: '#1E293B',
     },
   },
 });

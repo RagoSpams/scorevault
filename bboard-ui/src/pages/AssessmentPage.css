@@ -1,0 +1,282 @@
+/* Shared with ResultPage.tsx - screen chrome, status panel and result styles
+   below apply to both the assessment flow and its result screen. */
+
+.av-root {
+  min-height: 100vh;
+  width: 100%;
+  background: var(--sv-bg);
+  color: var(--sv-text);
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+
+.av-main {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sv-space-4);
+}
+
+.av-panel {
+  width: 100%;
+  max-width: 640px;
+}
+
+.av-progress-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: var(--sv-space-2);
+}
+
+.av-progress-label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--sv-text-secondary);
+  letter-spacing: 0.01em;
+}
+
+.av-progress-track {
+  width: 100%;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--sv-border);
+  overflow: hidden;
+  margin-bottom: var(--sv-space-4);
+}
+
+.av-progress-fill {
+  height: 100%;
+  border-radius: 999px;
+  background: var(--sv-accent);
+  transition: width 220ms ease;
+}
+
+.av-card {
+  background: var(--sv-surface);
+  border: 1px solid var(--sv-border);
+  border-radius: var(--sv-radius);
+  padding: var(--sv-space-4);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.16);
+}
+
+.av-question {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--sv-text);
+  letter-spacing: -0.01em;
+  line-height: 1.4;
+  margin: 0 0 var(--sv-space-3);
+}
+
+.av-options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sv-space-2);
+}
+
+.av-option {
+  appearance: none;
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: var(--sv-space-2);
+  padding: 14px 16px;
+  border-radius: var(--sv-radius);
+  border: 1px solid var(--sv-border);
+  background: rgba(148, 163, 184, 0.04);
+  color: var(--sv-text);
+  font-family: inherit;
+  font-size: 0.9375rem;
+  font-weight: 400;
+  transition:
+    border-color 200ms ease,
+    background-color 200ms ease,
+    box-shadow 200ms ease,
+    transform 150ms ease;
+}
+
+.av-option:hover {
+  border-color: rgba(20, 184, 166, 0.5);
+  background: rgba(20, 184, 166, 0.06);
+}
+
+.av-option:active {
+  transform: scale(0.99);
+}
+
+.av-option-marker {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 1.5px solid var(--sv-border);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    border-color 200ms ease,
+    background-color 200ms ease;
+}
+
+.av-option-marker svg {
+  width: 11px;
+  height: 11px;
+  opacity: 0;
+  transform: scale(0.5);
+  stroke: #f8fafc;
+  transition:
+    opacity 160ms ease,
+    transform 200ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.av-option.is-selected {
+  border-color: var(--sv-accent);
+  background: rgba(20, 184, 166, 0.1);
+  box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.12);
+}
+
+.av-option.is-selected .av-option-marker {
+  border-color: var(--sv-accent);
+  background: var(--sv-accent);
+}
+
+.av-option.is-selected .av-option-marker svg {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.av-nav-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: var(--sv-space-4);
+}
+
+/* Submission status panel - rendered on the result screen while/after submitting */
+
+.av-status {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--sv-space-3);
+  padding: var(--sv-space-5) var(--sv-space-4);
+}
+
+.av-spinner {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 3px solid var(--sv-border);
+  border-top-color: var(--sv-accent);
+  animation: av-spin 800ms linear infinite;
+}
+
+@keyframes av-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.av-status-title {
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: var(--sv-text);
+}
+
+.av-status-desc {
+  font-size: 0.875rem;
+  color: var(--sv-text-secondary);
+  max-width: 380px;
+  line-height: 1.5;
+}
+
+@keyframes av-result-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.av-result-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: av-result-pop 320ms cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .av-result-icon {
+    animation: none;
+  }
+}
+
+.av-result-icon svg {
+  width: 26px;
+  height: 26px;
+}
+
+.av-result-icon.is-pass {
+  background: rgba(20, 184, 166, 0.15);
+  border: 1px solid rgba(20, 184, 166, 0.4);
+}
+
+.av-result-icon.is-pass svg {
+  stroke: var(--sv-accent);
+}
+
+.av-result-icon.is-fail {
+  background: rgba(148, 163, 184, 0.1);
+  border: 1px dashed var(--sv-border);
+}
+
+.av-result-icon.is-fail svg {
+  stroke: var(--sv-text-secondary);
+}
+
+.av-result-address {
+  font-family: 'SFMono-Regular', Consolas, monospace;
+  font-size: 0.75rem;
+  color: var(--sv-text-secondary);
+  background: rgba(148, 163, 184, 0.08);
+  border: 1px solid var(--sv-border);
+  border-radius: var(--sv-radius);
+  padding: 10px 14px;
+  word-break: break-all;
+  max-width: 100%;
+}
+
+.av-footnote {
+  margin-top: var(--sv-space-3);
+  font-size: 0.8125rem;
+  color: var(--sv-text-secondary);
+  opacity: 0.7;
+  text-align: center;
+}
+
+.av-footnote-link {
+  color: var(--sv-text-secondary);
+  text-decoration: underline;
+  text-decoration-color: var(--sv-border);
+  text-underline-offset: 3px;
+  transition:
+    color 160ms ease,
+    text-decoration-color 160ms ease;
+}
+
+.av-footnote-link:hover {
+  color: var(--sv-accent);
+  text-decoration-color: var(--sv-accent);
+}

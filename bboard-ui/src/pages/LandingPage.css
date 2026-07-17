@@ -1,0 +1,196 @@
+.sv-root {
+  min-height: 100vh;
+  width: 100%;
+  background: var(--sv-bg);
+  color: var(--sv-text);
+  font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  position: relative;
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Subtle radial glow behind hero content */
+.sv-glow {
+  position: absolute;
+  top: -220px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 900px;
+  height: 700px;
+  background: radial-gradient(circle, rgba(20, 184, 166, 0.16) 0%, rgba(20, 184, 166, 0.05) 45%, rgba(15, 23, 42, 0) 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.sv-hero {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sv-space-3) var(--sv-space-4);
+}
+
+.sv-hero-inner {
+  max-width: var(--sv-max-width);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.sv-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sv-space-1);
+  padding: 6px 16px 6px 8px;
+  border-radius: 999px;
+  background: var(--sv-surface);
+  border: 1px solid var(--sv-border);
+  margin-bottom: var(--sv-space-2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+}
+
+.sv-badge-icon {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(20, 184, 166, 0.15);
+  border: 1px solid rgba(20, 184, 166, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.sv-badge-icon svg {
+  width: 12px;
+  height: 12px;
+  stroke: var(--sv-accent);
+}
+
+.sv-badge-text {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--sv-text-secondary);
+  letter-spacing: 0.01em;
+}
+
+.sv-wordmark {
+  font-size: clamp(2.75rem, 6vw, 4.25rem);
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  color: var(--sv-text);
+  margin: 0;
+}
+
+.sv-tagline {
+  font-size: clamp(1.25rem, 2.4vw, 1.625rem);
+  font-weight: 600;
+  color: var(--sv-accent);
+  letter-spacing: -0.01em;
+  margin: var(--sv-space-tight) 0 0;
+}
+
+.sv-description {
+  font-size: 1.0625rem;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--sv-text-secondary);
+  max-width: 560px;
+  margin: var(--sv-space-2) 0 0;
+}
+
+.sv-cta-row {
+  margin-top: var(--sv-space-3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sv-space-3);
+}
+
+.sv-feature-row {
+  margin-top: var(--sv-space-6);
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--sv-space-3);
+}
+
+.sv-feature-card {
+  background: var(--sv-surface);
+  border: 1px solid var(--sv-border);
+  border-radius: var(--sv-radius);
+  padding: var(--sv-space-3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.16);
+}
+
+.sv-feature-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(20, 184, 166, 0.12);
+  border: 1px solid rgba(20, 184, 166, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sv-feature-icon svg {
+  width: 16px;
+  height: 16px;
+  stroke: var(--sv-accent);
+}
+
+/* Negative-claim card ("nothing happens") reads as muted/absent rather than
+   affirmatively teal, distinguishing it from the two positive-claim cards. */
+.sv-feature-icon--muted {
+  background: rgba(148, 163, 184, 0.1);
+  border: 1px dashed var(--sv-border);
+}
+
+.sv-feature-icon--muted svg {
+  stroke: var(--sv-text-secondary);
+}
+
+.sv-feature-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--sv-text);
+  letter-spacing: -0.01em;
+}
+
+.sv-feature-desc {
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: var(--sv-text-secondary);
+  line-height: 1.5;
+}
+
+.sv-footer {
+  position: relative;
+  z-index: 1;
+  padding: var(--sv-space-3) var(--sv-space-4) var(--sv-space-4);
+  text-align: center;
+}
+
+.sv-footer-text {
+  font-size: 0.8125rem;
+  color: var(--sv-text-secondary);
+  opacity: 0.7;
+}
+
+@media (max-width: 720px) {
+  .sv-feature-row {
+    grid-template-columns: 1fr;
+  }
+}

@@ -43,6 +43,16 @@ export class StandaloneConfig implements Config {
   generateDust = false;
 }
 
+export class AssessmentStandaloneConfig implements Config {
+  getEnvironment(logger: Logger): TestEnvironment {
+    return getTestEnvironment(logger) as TestEnvironment;
+  }
+  privateStateStoreName = 'assessment-private-state';
+  logDir = path.resolve(currentDir, '..', 'logs', 'assessment-standalone', `${new Date().toISOString()}.log`);
+  zkConfigPath = path.resolve(currentDir, '..', '..', 'contract', 'src', 'managed', 'assessment');
+  generateDust = false;
+}
+
 export class PreviewRemoteConfig implements Config {
   getEnvironment(logger: Logger): TestEnvironment {
     setNetworkId('preview');

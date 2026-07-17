@@ -13,48 +13,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import React, { useEffect, useState } from 'react';
-import { Box } from '@mui/material';
-import { MainLayout, Board } from './components';
-import { useDeployedBoardContext } from './hooks';
-import { type BoardDeployment } from './contexts';
-import { type Observable } from 'rxjs';
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
+import LandingPage from './pages/LandingPage';
+import AssessmentPage from './pages/AssessmentPage';
 
 /**
- * The root bulletin board application component.
- *
- * @remarks
- * The {@link App} component requires a `<DeployedBoardProvider />` parent in order to retrieve
- * information about current bulletin board deployments.
+ * The root ScoreVault application component.
  *
  * @internal
  */
-const App: React.FC = () => {
-  const boardApiProvider = useDeployedBoardContext();
-  const [boardDeployments, setBoardDeployments] = useState<Array<Observable<BoardDeployment>>>([]);
-
-  useEffect(() => {
-    const subscription = boardApiProvider.boardDeployments$.subscribe(setBoardDeployments);
-
-    return () => {
-      subscription.unsubscribe();
-    };
-  }, [boardApiProvider]);
-
-  return (
-    <Box sx={{ background: '#000', minHeight: '100vh' }}>
-      <MainLayout>
-        {boardDeployments.map((boardDeployment, idx) => (
-          <div data-testid={`board-${idx}`} key={`board-${idx}`}>
-            <Board boardDeployment$={boardDeployment} />
-          </div>
-        ))}
-        <div data-testid="board-start">
-          <Board />
-        </div>
-      </MainLayout>
-    </Box>
-  );
-};
+const App: React.FC = () => (
+  <Routes>
+    <Route path="/" element={<LandingPage />} />
+    <Route path="/assessment" element={<AssessmentPage />} />
+  </Routes>
+);
 
 export default App;

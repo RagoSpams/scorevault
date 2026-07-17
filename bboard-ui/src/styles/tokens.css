@@ -1,0 +1,19 @@
+:root {
+  --sv-bg: #0f172a;
+  --sv-surface: #1e293b;
+  --sv-accent: #14b8a6;
+  --sv-accent-hover: #0d9488;
+  --sv-text: #f8fafc;
+  --sv-text-secondary: #94a3b8;
+  --sv-border: #334155;
+  --sv-radius: 12px;
+  --sv-max-width: 1100px;
+  --sv-space-1: 8px;
+  --sv-space-2: 16px;
+  --sv-space-3: 24px;
+  --sv-space-4: 32px;
+  --sv-space-5: 48px;
+  --sv-space-6: 64px;
+  --sv-space-7: 96px;
+  --sv-space-tight: 12px;
+}
