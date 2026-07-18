@@ -1,0 +1,8 @@
+{
+  "version": 3,
+  "file": "index.js",
+  "sourceRoot": "../../../../",
+  "sources": ["src/assessment.compact"],
+  "names": [],
+  "mappings": ";;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;EAAA;;;;;;;;;;;;;MAgBA,AAAA,gBAIC;;;;;;;;;;;;;;;;;;;;;;OAAA;;;;;;GACA;EArBD;;;;;;;;;;;;;;;;;;;;;;;;;;;;;IAIA;;;;;;;;;yEAA8B;;;;;;;GAiB7B;EAfD,AAAA,eAAoC;;0DAApC,YAAoC;;;;;;;;;;;;;;GAAA;EAEpC,AAAA,WAEC,kBAAA;EAED,AAAA,mBAEC,iBAAA;EAED,AAAA,mBAIC;UAHO,OAAsB;4BACZ,OAAK;;UACrB,KAAM,GAAY,OAAK;IAAvB;;;;;;;2HAAA,KAAM;;yEAAA;;GACP;;;;;;;;;;;;;;;;IAhBD;qCAAA;;;;;;;;;;;0GAA8B;KAAA;;;;;;;;;;"
+}
