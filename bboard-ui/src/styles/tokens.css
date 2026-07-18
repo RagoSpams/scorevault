@@ -16,4 +16,22 @@
   --sv-space-6: 64px;
   --sv-space-7: 96px;
   --sv-space-tight: 12px;
+
+  /* Audit Console design system - scoped to the assessment flow (question,
+     proof generation, result screens). Deliberately separate from the
+     --sv-* tokens above, which remain the landing page's palette. */
+  --ac-bg: #0b1220;
+  --ac-panel: #0e1626;
+  --ac-panel-deep: #080b12;
+  --ac-nav-bg: #0a101c;
+  --ac-text-primary: #f3f5f9;
+  --ac-text: #e7eaf0;
+  --ac-text-secondary: #8a93a6;
+  --ac-accent: #5b7fe0;
+  --ac-accent-tint: #93a9f0;
+  --ac-success: #2ecc9a;
+  --ac-border: rgba(255, 255, 255, 0.08);
+  --ac-border-strong: rgba(255, 255, 255, 0.18);
+  --ac-font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --ac-font-mono: 'IBM Plex Mono', 'SFMono-Regular', Consolas, monospace;
 }
