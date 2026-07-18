@@ -49,6 +49,7 @@ import {
 import type { MidnightProvider, UnboundTransaction, WalletProvider } from '@midnight-ntwrk/midnight-js-types';
 import { ttlOneHour } from '@midnight-ntwrk/midnight-js-utils';
 import { type Logger } from 'pino';
+import * as Rx from 'rxjs';
 
 export type SharedWalletEnvironment = {
   readonly walletNetworkId: string;
@@ -60,6 +61,29 @@ export type SharedWalletEnvironment = {
 
 /** Fee overhead for remote (non-local) networks - mirrors bboard-cli's MidnightWalletProvider. */
 const REMOTE_ADDITIONAL_FEE_OVERHEAD = 1_000n;
+
+/**
+ * How long to wait for the wallet (shielded + unshielded + dust) to sync
+ * before allowing a submission to proceed.
+ *
+ * @remarks
+ * bboard-cli's CLI flow always blocks on this via `waitForUnshieldedFunds`'s
+ * `isFacadeStateSynced` check before ever attempting a deploy/submit. This
+ * browser path previously had no equivalent wait at all, so it always tried
+ * to balance a transaction against a wallet that had had zero time to
+ * discover its dust coins - failing with "Insufficient Funds: could not
+ * balance dust" within a second or two, regardless of whether the
+ * underlying network actually had funds.
+ */
+const WALLET_SYNC_TIMEOUT_MS = 120_000;
+
+const isProgressStrictlyComplete = (progress: { isStrictlyComplete?: () => boolean } | undefined): boolean => {
+  try {
+    return Boolean(progress && typeof progress.isStrictlyComplete === 'function' && progress.isStrictlyComplete());
+  } catch {
+    return false;
+  }
+};
 
 const deriveKeyForRole = (seedHex: string, role: Role): Uint8Array => {
   const seedBuffer = Buffer.from(seedHex, 'hex');
@@ -126,7 +150,26 @@ export const buildSharedWalletProvider = async (
   const zswapSecretKeys = ZswapSecretKeys.fromSeed(shieldedSeed);
   const dustSecretKey = DustSecretKey.fromSeed(dustSeed);
   await wallet.start(zswapSecretKeys, dustSecretKey);
-  logger.info('Shared wallet facade started');
+  logger.info('Shared wallet facade started, waiting for it to sync before allowing submissions...');
+
+  try {
+    await Rx.firstValueFrom(
+      wallet.state().pipe(
+        Rx.filter(
+          (state) =>
+            isProgressStrictlyComplete(state.shielded.state.progress) &&
+            isProgressStrictlyComplete(state.unshielded.progress) &&
+            isProgressStrictlyComplete(state.dust.state.progress),
+        ),
+        Rx.timeout(WALLET_SYNC_TIMEOUT_MS),
+      ),
+    );
+    logger.info('Shared wallet fully synced');
+  } catch (error) {
+    throw new Error(
+      `Shared wallet did not finish syncing within ${WALLET_SYNC_TIMEOUT_MS / 1000}s - the network may be slow or unreachable. Original error: ${error instanceof Error ? error.message : String(error)}`,
+    );
+  }
 
   return {
     getCoinPublicKey: () => zswapSecretKeys.coinPublicKey,
