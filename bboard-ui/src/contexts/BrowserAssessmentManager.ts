@@ -24,12 +24,18 @@ export type AssessmentSubmission =
   | { readonly status: 'result'; readonly passed: boolean; readonly contractAddress: string }
   | { readonly status: 'failed'; readonly error: Error };
 
-/** Preprod network endpoints - mirrors bboard-cli's PreprodRemoteConfig. */
-const PREPROD_ENV: SharedWalletEnvironment = {
-  walletNetworkId: 'preprod',
-  indexer: 'https://indexer.preprod.midnight.network/api/v4/graphql',
-  indexerWS: 'wss://indexer.preprod.midnight.network/api/v4/graphql/ws',
-  nodeWS: 'wss://rpc.preprod.midnight.network',
+/**
+ * Network endpoints for the shared wallet. Defaults to preprod (mirrors
+ * bboard-cli's PreprodRemoteConfig) - every field can be overridden via env
+ * so a .env.<mode> file can point the app at a different network (e.g. a
+ * local standalone network) without touching this default.
+ */
+const NETWORK_ENV: SharedWalletEnvironment = {
+  walletNetworkId: (import.meta.env.VITE_NETWORK_ID as string) || 'preprod',
+  indexer: (import.meta.env.VITE_INDEXER_URI as string) || 'https://indexer.preprod.midnight.network/api/v4/graphql',
+  indexerWS:
+    (import.meta.env.VITE_INDEXER_WS_URI as string) || 'wss://indexer.preprod.midnight.network/api/v4/graphql/ws',
+  nodeWS: (import.meta.env.VITE_NODE_WS_URI as string) || 'wss://rpc.preprod.midnight.network',
   proofServer: (import.meta.env.VITE_PROOF_SERVER_URI as string) || 'http://127.0.0.1:6300',
 };
 
@@ -98,13 +104,13 @@ const initializeAssessmentProviders = async (logger: Logger): Promise<Assessment
     AssessmentPrivateStateId,
     AssessmentPrivateState
   >();
-  const sharedWallet = await buildSharedWalletProvider(PREPROD_ENV, seed, logger);
+  const sharedWallet = await buildSharedWalletProvider(NETWORK_ENV, seed, logger);
 
   return {
     privateStateProvider: inMemoryAssessmentPrivateStateProvider,
     zkConfigProvider: keyMaterialProvider,
-    proofProvider: httpClientProofProvider(PREPROD_ENV.proofServer, keyMaterialProvider),
-    publicDataProvider: indexerPublicDataProvider(PREPROD_ENV.indexer, PREPROD_ENV.indexerWS),
+    proofProvider: httpClientProofProvider(NETWORK_ENV.proofServer, keyMaterialProvider),
+    publicDataProvider: indexerPublicDataProvider(NETWORK_ENV.indexer, NETWORK_ENV.indexerWS),
     walletProvider: sharedWallet,
     midnightProvider: sharedWallet,
   };
