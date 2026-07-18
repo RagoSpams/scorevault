@@ -15,13 +15,23 @@ import { buildSharedWalletProvider, type SharedWalletEnvironment } from './share
 
 /**
  * The phases a single assessment submission passes through, from wallet setup
- * through to the disclosed pass/fail result.
+ * through to the disclosed pass/fail result. Each phase corresponds to a real
+ * async boundary in the submission pipeline (see {@link BrowserAssessmentManager.run})
+ * - there are no synthetic/timed phases here for the UI to interpolate.
  */
 export type AssessmentSubmission =
   | { readonly status: 'preparing' }
   | { readonly status: 'deploying' }
   | { readonly status: 'submitting' }
-  | { readonly status: 'result'; readonly passed: boolean; readonly contractAddress: string }
+  | { readonly status: 'confirming' }
+  | {
+      readonly status: 'result';
+      readonly passed: boolean;
+      readonly contractAddress: string;
+      readonly txHash: string;
+      readonly blockHeight: number;
+      readonly blockTimestamp: number;
+    }
   | { readonly status: 'failed'; readonly error: Error };
 
 /**
@@ -79,10 +89,19 @@ export class BrowserAssessmentManager {
       const api = await AssessmentAPI.deploy(providers, answers, this.logger);
 
       subject.next({ status: 'submitting' });
-      await api.submitAssessment();
+      const receipt = await api.submitAssessment();
 
+      subject.next({ status: 'confirming' });
       const state = await firstValueFrom(api.state$);
-      subject.next({ status: 'result', passed: state.passed, contractAddress: api.deployedContractAddress });
+
+      subject.next({
+        status: 'result',
+        passed: state.passed,
+        contractAddress: api.deployedContractAddress,
+        txHash: receipt.txHash,
+        blockHeight: receipt.blockHeight,
+        blockTimestamp: receipt.blockTimestamp,
+      });
     } catch (error: unknown) {
       subject.next({ status: 'failed', error: error instanceof Error ? error : new Error(String(error)) });
     }

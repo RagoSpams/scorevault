@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#05070c;font-family:'Inter',system-ui,sans-serif}
+@keyframes scanline{0%{transform:translateY(-100%)}100%{transform:translateY(1800%)}}
+@keyframes spin-slow{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes spin-rev{from{transform:rotate(360deg)}to{transform:rotate(0deg)}}
+@keyframes feed-pulse{0%,100%{opacity:.25;transform:translateY(0)}50%{opacity:.9;transform:translateY(-3px)}}
+@keyframes tick{0%{opacity:.3}50%{opacity:1}100%{opacity:.3}}
+.sv-screen{width:1440px;background:#0B1220;color:#E7EAF0;font-family:'Inter',sans-serif;position:relative;margin-bottom:36px;border-radius:4px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.sv-lbl{font:600 12px 'IBM Plex Mono',monospace;color:rgba(255,255,255,.4);margin:0 0 10px 4px;letter-spacing:.04em}
+.sv-nav{height:64px;display:flex;align-items:center;padding:0 40px;border-bottom:1px solid rgba(255,255,255,.08);background:#0A101C;position:relative;z-index:3}
+.sv-logo{width:22px;height:22px;background:#5B7FE0;transform:rotate(45deg);border-radius:4px;position:relative}
+.sv-logo:after{content:'';position:absolute;top:50%;left:50%;width:8px;height:4px;border-left:2px solid #0A101C;border-bottom:2px solid #0A101C;transform:translate(-60%,-70%) rotate(-45deg)}
+</style>
+</helmet>
+
+<div style="padding:44px">
+
+<div class="sv-lbl">01 · QUESTION — Protocol Compliance Assessment</div>
+<div class="sv-screen" style="height:900px">
+  <div class="sv-nav">
+    <div class="sv-logo"></div>
+    <div style="font:700 15px 'Inter';color:#F3F5F9;margin-left:12px;letter-spacing:.01em">ScoreVault</div>
+    <div style="width:1px;height:20px;background:rgba(255,255,255,.1);margin:0 20px"></div>
+    <div style="font:500 12px 'IBM Plex Mono',monospace;color:rgba(231,234,240,.4)">PROTOCOL COMPLIANCE ASSESSMENT · v2.3</div>
+    <div style="margin-left:auto;display:flex;align-items:center;gap:18px">
+      <div style="font:500 12px 'IBM Plex Mono',monospace;color:rgba(231,234,240,.35)">SESSION #A83F19</div>
+      <div style="display:flex;align-items:center;gap:7px;padding:6px 12px;border-radius:20px;background:rgba(46,204,154,.1);border:1px solid rgba(46,204,154,.3)">
+        <div style="width:6px;height:6px;border-radius:50%;background:#2ECC9A"></div>
+        <div style="font:600 11px 'IBM Plex Mono',monospace;color:#2ECC9A;letter-spacing:.04em">ENCRYPTED SESSION</div>
+      </div>
+    </div>
+  </div>
+  <div style="display:flex;height:calc(100% - 64px)">
+    <div style="flex:1.55;padding:72px 80px;display:flex;flex-direction:column;justify-content:center;position:relative;background:radial-gradient(1200px 600px at -10% 0%,rgba(91,127,224,.06),transparent)">
+      <div style="display:inline-flex;align-items:center;gap:8px;margin-bottom:30px;width:fit-content">
+        <div style="width:7px;height:7px;background:#5B7FE0;border-radius:1px"></div>
+        <div style="font:600 13px 'IBM Plex Mono',monospace;color:#93A9F0;letter-spacing:.06em">CLAUSE 4.2 — DATA RETENTION</div>
+      </div>
+      <div style="font:600 36px/1.35 'Inter';max-width:660px;color:#F3F5F9;margin-bottom:18px">A contractor requests access to archived client records after their engagement has ended, citing an open support ticket.</div>
+      <div style="font:500 20px/1.55 'Inter';color:#8A93A6;max-width:600px;margin-bottom:16px">Per Clause 4.2, do you grant access without a new authorization request?</div>
+      <div style="font:400 13px 'IBM Plex Mono',monospace;color:rgba(138,147,166,.55);margin-bottom:52px">Reference: Data Governance Policy §4.2.1(b), rev. March 2026</div>
+      <div style="display:flex;gap:16px">
+        <div style="flex:1;max-width:250px;padding:22px 0;text-align:center;border:1px solid rgba(91,127,224,.55);border-radius:6px;font:600 16px 'Inter';color:#93A9F0;background:rgba(91,127,224,.08);display:flex;align-items:center;justify-content:center;gap:10px">
+          <span style="width:18px;height:18px;border-radius:50%;border:1.5px solid #93A9F0;display:flex;align-items:center;justify-content:center;font:700 11px monospace">✓</span>YES, COMPLY
+        </div>
+        <div style="flex:1;max-width:250px;padding:22px 0;text-align:center;border:1px solid rgba(231,234,240,.18);border-radius:6px;font:600 16px 'Inter';color:#C7CCDA;display:flex;align-items:center;justify-content:center;gap:10px">
+          <span style="width:18px;height:18px;border-radius:50%;border:1.5px solid #C7CCDA;display:flex;align-items:center;justify-content:center;font:700 11px monospace">✕</span>NO, ESCALATE
+        </div>
+      </div>
+      <div style="margin-top:28px;font:400 12px 'Inter';color:rgba(138,147,166,.45)">Your response is recorded locally and encrypted before it ever leaves this device.</div>
+    </div>
+    <div style="width:460px;background:#0E1626;border-left:1px solid rgba(255,255,255,.08);padding:56px 42px;display:flex;flex-direction:column">
+      <div style="font:600 12px 'IBM Plex Mono',monospace;color:rgba(231,234,240,.4);letter-spacing:.05em;margin-bottom:22px">ASSESSMENT STRUCTURE</div>
+      <div style="display:flex;flex-direction:column;gap:1px;margin-bottom:30px">
+        <div style="display:flex;align-items:center;gap:12px;padding:15px 0;border-bottom:1px solid rgba(255,255,255,.06)"><div style="width:22px;height:22px;border-radius:4px;background:rgba(46,204,154,.13);border:1px solid #2ECC9A;color:#2ECC9A;display:flex;align-items:center;justify-content:center;font:700 12px monospace">✓</div><div style="font:500 14px 'Inter';color:#8A93A6">Access Control</div><div style="margin-left:auto;font:500 11px 'IBM Plex Mono',monospace;color:rgba(138,147,166,.4)">4/4</div></div>
+        <div style="display:flex;align-items:center;gap:12px;padding:15px 0;border-bottom:1px solid rgba(255,255,255,.06)"><div style="width:22px;height:22px;border-radius:4px;background:#5B7FE0;color:#0B1220;display:flex;align-items:center;justify-content:center;font:700 12px monospace">2</div><div style="font:600 14px 'Inter';color:#F3F5F9">Data Retention</div><div style="margin-left:auto;font:500 11px 'IBM Plex Mono',monospace;color:#93A9F0">2/4</div></div>
+        <div style="display:flex;align-items:center;gap:12px;padding:15px 0;border-bottom:1px solid rgba(255,255,255,.06)"><div style="width:22px;height:22px;border-radius:4px;border:1px solid rgba(231,234,240,.2);display:flex;align-items:center;justify-content:center;font:700 12px monospace;color:rgba(231,234,240,.3)">3</div><div style="font:500 14px 'Inter';color:rgba(231,234,240,.35)">Incident Response</div><div style="margin-left:auto;font:500 11px 'IBM Plex Mono',monospace;color:rgba(138,147,166,.25)">0/3</div></div>
+        <div style="display:flex;align-items:center;gap:12px;padding:15px 0"><div style="width:22px;height:22px;border-radius:4px;border:1px solid rgba(231,234,240,.2);display:flex;align-items:center;justify-content:center;font:700 12px monospace;color:rgba(231,234,240,.3)">4</div><div style="font:500 14px 'Inter';color:rgba(231,234,240,.35)">Disclosure</div><div style="margin-left:auto;font:500 11px 'IBM Plex Mono',monospace;color:rgba(138,147,166,.25)">0/3</div></div>
+      </div>
+      <div style="margin-bottom:30px">
+        <div style="display:flex;justify-content:space-between;font:600 12px 'IBM Plex Mono',monospace;color:rgba(231,234,240,.5);margin-bottom:10px"><span>QUESTION 6 OF 14</span><span>43%</span></div>
+        <div style="display:flex;gap:3px">
+          <div style="flex:1;height:7px;border-radius:2px;background:#5B7FE0"></div><div style="flex:1;height:7px;border-radius:2px;background:#5B7FE0"></div><div style="flex:1;height:7px;border-radius:2px;background:#5B7FE0"></div><div style="flex:1;height:7px;border-radius:2px;background:#5B7FE0"></div><div style="flex:1;height:7px;border-radius:2px;background:#5B7FE0"></div><div style="flex:1;height:7px;border-radius:2px;background:#5B7FE0"></div>
+          <div style="flex:1;height:7px;border-radius:2px;background:rgba(255,255,255,.1)"></div><div style="flex:1;height:7px;border-radius:2px;background:rgba(255,255,255,.1)"></div><div style="flex:1;height:7px;border-radius:2px;background:rgba(255,255,255,.1)"></div><div style="flex:1;height:7px;border-radius:2px;background:rgba(255,255,255,.1)"></div><div style="flex:1;height:7px;border-radius:2px;background:rgba(255,255,255,.1)"></div><div style="flex:1;height:7px;border-radius:2px;background:rgba(255,255,255,.1)"></div><div style="flex:1;height:7px;border-radius:2px;background:rgba(255,255,255,.1)"></div><div style="flex:1;height:7px;border-radius:2px;background:rgba(255,255,255,.1)"></div>
+        </div>
+      </div>
+      <div style="margin-top:auto;border-top:1px solid rgba(255,255,255,.08);padding-top:24px">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px"><div style="width:6px;height:6px;border-radius:50%;background:#5B7FE0;animation:tick 1.6s ease-in-out infinite"></div><div style="font:600 11px 'IBM Plex Mono',monospace;color:rgba(231,234,240,.45);letter-spacing:.05em">SESSION INTEGRITY</div></div>
+        <div style="font:500 12.5px 'IBM Plex Mono',monospace;color:#5B7FE0;word-break:break-all;line-height:1.6">commit: 9f2a1c…e8b04d<br>each answer extends this commitment — nothing is sent until submission.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="sv-lbl">02 · PROOF GENERATION</div>
+<div class="sv-screen" style="height:900px">
+  <div class="sv-nav" style="opacity:.5">
+    <div class="sv-logo"></div>
+    <div style="font:700 15px 'Inter';color:#F3F5F9;margin-left:12px">ScoreVault</div>
+    <div style="width:1px;height:20px;background:rgba(255,255,255,.1);margin:0 20px"></div>
+    <div style="font:500 12px 'IBM Plex Mono',monospace;color:rgba(231,234,240,.4)">SESSION LOCKED — ASSESSMENT SUBMITTED</div>
+    <div style="margin-left:auto;font:500 12px 'IBM Plex Mono',monospace;color:rgba(231,234,240,.35)">SESSION #A83F19</div>
+  </div>
+  <div style="height:calc(100% - 64px);display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;background:#080B12">
+    <div style="position:absolute;inset:0;background-image:linear-gradient(rgba(91,127,224,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(91,127,224,.055) 1px,transparent 1px);background-size:52px 52px"></div>
+    <div style="position:absolute;top:0;left:0;right:0;height:220px;background:linear-gradient(180deg,rgba(91,127,224,.4),transparent);animation:scanline 3.2s linear infinite;z-index:1"></div>
+
+    <div style="z-index:2;display:flex;gap:8px;margin-bottom:36px">
+      <div style="font:600 15px 'IBM Plex Mono',monospace;color:#93A9F0;letter-spacing:.08em">GENERATING ZERO-KNOWLEDGE PROOF</div>
+    </div>
+
+    <div style="display:flex;align-items:center;gap:56px;z-index:2;margin-bottom:44px">
+      <div style="display:flex;flex-direction:column;gap:9px">
+        <div style="font:500 11px 'IBM Plex Mono',monospace;color:rgba(231,234,240,.35);letter-spacing:.05em;margin-bottom:6px">14 ENCRYPTED RESPONSES</div>
+        <div style="display:grid;grid-template-columns:repeat(7,16px);gap:7px">
+          <div style="width:16px;height:16px;border:1.5px solid #5B7FE0;border-radius:3px;background:rgba(91,127,224,.15);animation:feed-pulse 1.8s ease-in-out infinite"></div>
+          <div style="width:16px;height:16px;border:1.5px solid #5B7FE0;border-radius:3px;background:rgba(91,127,224,.15);animation:feed-pulse 1.8s ease-in-out infinite .1s"></div>
+          <div style="width:16px;height:16px;border:1.5px solid #5B7FE0;border-radius:3px;background:rgba(91,127,224,.15);animation:feed-pulse 1.8s ease-in-out infinite .2s"></div>
+          <div style="width:16px;height:16px;border:1.5px solid #5B7FE0;border-radius:3px;background:rgba(91,127,224,.15);animation:feed-pulse 1.8s ease-in-out infinite .3s"></div>
+          <div style="width:16px;height:16px;border:1.5px solid #5B7FE0;border-radius:3px;background:rgba(91,127,224,.15);animation:feed-pulse 1.8s ease-in-out infinite .4s"></div>
+          <div style="width:16px;height:16px;border:1.5px solid #5B7FE0;border-radius:3px;background:rgba(91,127,224,.15);animation:feed-pulse 1.8s ease-in-out infinite .5s"></div>
+          <div style="width:16px;height:16px;border:1.5px solid #5B7FE0;border-radius:3px;background:rgba(91,127,224,.15);animation:feed-pulse 1.8s ease-in-out infinite .6s"></div>
+          <div style="width:16px;height:16px;border:1.5px solid #5B7FE0;border-radius:3px;background:rgba(91,127,224,.15);animation:feed-pulse 1.8s ease-in-out infinite .7s"></div>
+          <div style="width:16px;height:16px;border:1.5px solid #5B7FE0;border-radius:3px;background:rgba(91,127,224,.15);animation:feed-pulse 1.8s ease-in-out infinite .8s"></div>
+          <div style="width:16px;height:16px;border:1.5px solid rgba(91,127,224,.35);border-radius:3px"></div>
+          <div style="width:16px;height:16px;border:1.5px solid rgba(91,127,224,.35);border-radius:3px"></div>
+          <div style="width:16px;height:16px;border:1.5px solid rgba(91,127,224,.35);border-radius:3px"></div>
+          <div style="width:16px;height:16px;border:1.5px solid rgba(91,127,224,.35);border-radius:3px"></div>
+          <div style="width:16px;height:16px;border:1.5px solid rgba(91,127,224,.35);border-radius:3px"></div>
+        </div>
+        <div style="font:500 11px 'IBM Plex Mono',monospace;color:rgba(231,234,240,.3);margin-top:4px">values never leave this diagram</div>
+      </div>
+
+      <div style="font:600 20px 'IBM Plex Mono',monospace;color:rgba(91,127,224,.5)">→</div>
+
+      <div style="position:relative;width:230px;height:230px;display:flex;align-items:center;justify-content:center">
+        <div style="position:absolute;width:230px;height:230px;border:1px solid rgba(91,127,224,.25);border-radius:8px;transform:rotate(45deg)"></div>
+        <div style="position:absolute;width:178px;height:178px;border:1px solid rgba(91,127,224,.4);border-radius:8px;animation:spin-slow 12s linear infinite"></div>
+        <div style="position:absolute;width:126px;height:126px;border:1.5px solid #5B7FE0;border-radius:6px;animation:spin-rev 8s linear infinite"></div>
+        <div style="position:absolute;font:700 13px 'IBM Plex Mono',monospace;color:#F3F5F9;background:#0B1220;padding:7px 12px;border:1px solid #5B7FE0;border-radius:4px;letter-spacing:.03em">PLONK</div>
+      </div>
+
+      <div style="font:600 20px 'IBM Plex Mono',monospace;color:rgba(91,127,224,.5)">→</div>
+
+      <div style="display:flex;flex-direction:column;align-items:center;gap:10px">
+        <div style="width:74px;height:92px;border:1.5px solid #2ECC9A;border-radius:6px;display:flex;align-items:center;justify-content:center;background:rgba(46,204,154,.08)">
+          <div style="font:700 24px monospace;color:#2ECC9A">✓</div>
+        </div>
+        <div style="font:500 11px 'IBM Plex Mono',monospace;color:rgba(46,204,154,.7);text-align:center">PASS / FAIL<br>only</div>
+      </div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:9px;z-index:2;width:520px;font:500 13.5px 'IBM Plex Mono',monospace;margin-bottom:22px">
+      <div style="display:flex;justify-content:space-between;color:rgba(231,234,240,.35)"><span>[✓] Encrypting response vector</span><span>00:02</span></div>
+      <div style="display:flex;justify-content:space-between;color:rgba(231,234,240,.35)"><span>[✓] Committing to witness</span><span>00:03</span></div>
+      <div style="display:flex;justify-content:space-between;color:#93A9F0"><span>[•] Computing proof (PLONK, BLS12-381)</span><span>68%</span></div>
+      <div style="display:flex;justify-content:space-between;color:rgba(231,234,240,.22)"><span>[ ] Publishing commitment to Midnight</span><span>—</span></div>
+    </div>
+    <div style="font:500 12.5px 'Inter';color:rgba(231,234,240,.4);z-index:2">This process runs entirely on your device. No answer, score, or raw response is ever transmitted.</div>
+  </div>
+</div>
+
+<div class="sv-lbl">03 · RESULT</div>
+<div class="sv-screen" style="height:900px">
+  <div class="sv-nav">
+    <div class="sv-logo"></div>
+    <div style="font:700 15px 'Inter';color:#F3F5F9;margin-left:12px">ScoreVault</div>
+    <div style="width:1px;height:20px;background:rgba(255,255,255,.1);margin:0 20px"></div>
+    <div style="font:500 12px 'IBM Plex Mono',monospace;color:rgba(231,234,240,.4)">ASSESSMENT COMPLETE</div>
+    <div style="margin-left:auto;font:500 12px 'IBM Plex Mono',monospace;color:rgba(231,234,240,.35)">SESSION #A83F19</div>
+  </div>
+  <div style="height:calc(100% - 64px);display:flex;align-items:center;justify-content:center;background:radial-gradient(1000px 500px at 50% 0%,rgba(91,127,224,.06),transparent)">
+    <div style="width:920px;display:flex;gap:2px;border:1px solid rgba(91,127,224,.35);border-radius:10px;overflow:hidden;position:relative">
+      <div style="position:absolute;top:-1px;left:-1px;width:30px;height:30px;border-top:2px solid #5B7FE0;border-left:2px solid #5B7FE0;z-index:2"></div>
+      <div style="position:absolute;top:-1px;right:-1px;width:30px;height:30px;border-top:2px solid #5B7FE0;border-right:2px solid #5B7FE0;z-index:2"></div>
+      <div style="position:absolute;bottom:-1px;left:-1px;width:30px;height:30px;border-bottom:2px solid #5B7FE0;border-left:2px solid #5B7FE0;z-index:2"></div>
+      <div style="position:absolute;bottom:-1px;right:-1px;width:30px;height:30px;border-bottom:2px solid #5B7FE0;border-right:2px solid #5B7FE0;z-index:2"></div>
+
+      <div style="flex:1.15;padding:56px 52px;background:#0E1626;display:flex;flex-direction:column;justify-content:center">
+        <div style="width:64px;height:64px;border-radius:50%;border:2px solid #2ECC9A;display:flex;align-items:center;justify-content:center;font:700 30px 'Inter';color:#2ECC9A;margin-bottom:24px">✓</div>
+        <div style="font:800 32px 'Inter';color:#F3F5F9;letter-spacing:.01em;margin-bottom:6px">ASSESSMENT: PASS</div>
+        <div style="font:500 13px 'IBM Plex Mono',monospace;color:rgba(231,234,240,.45);margin-bottom:24px">VERIFIED VIA ZERO-KNOWLEDGE PROOF</div>
+        <div style="font:400 15.5px/1.65 'Inter';color:#8A93A6;margin-bottom:28px">Your individual score and answers were never disclosed to ScoreVault or the reviewing organization. Only this pass/fail outcome — and the proof that it is genuine — was recorded on-chain.</div>
+        <div style="display:flex;gap:12px">
+          <div style="padding:14px 26px;border-radius:6px;background:#5B7FE0;color:#0B1220;font:600 13.5px 'Inter'">Download proof receipt</div>
+          <div style="padding:14px 26px;border-radius:6px;border:1px solid rgba(255,255,255,.15);color:#C7CCDA;font:600 13.5px 'Inter'">Return to dashboard</div>
+        </div>
+      </div>
+
+      <div style="width:1px;background:rgba(255,255,255,.08)"></div>
+
+      <div style="flex:1;padding:56px 46px;background:#0B1220;display:flex;flex-direction:column;gap:20px">
+        <div style="font:600 12px 'IBM Plex Mono',monospace;color:rgba(231,234,240,.4);letter-spacing:.05em">ON-CHAIN VERIFICATION RECEIPT</div>
+        <div>
+          <div style="font:500 11px 'IBM Plex Mono',monospace;color:rgba(231,234,240,.35);margin-bottom:6px">CONTRACT ADDRESS · MIDNIGHT NETWORK</div>
+          <div style="font:500 14px 'IBM Plex Mono',monospace;color:#93A9F0;word-break:break-all;line-height:1.5">mn_shield-addr_test1qq...7f9a3c1b8e2d4f6a9c0e</div>
+        </div>
+        <div style="display:flex;gap:28px">
+          <div><div style="font:500 11px 'IBM Plex Mono',monospace;color:rgba(231,234,240,.35);margin-bottom:6px">PROOF SYSTEM</div><div style="font:500 13px 'IBM Plex Mono',monospace;color:#E7EAF0">PLONK / BLS12-381</div></div>
+          <div><div style="font:500 11px 'IBM Plex Mono',monospace;color:rgba(231,234,240,.35);margin-bottom:6px">BLOCK HEIGHT</div><div style="font:500 13px 'IBM Plex Mono',monospace;color:#E7EAF0">1,842,207</div></div>
+        </div>
+        <div>
+          <div style="font:500 11px 'IBM Plex Mono',monospace;color:rgba(231,234,240,.35);margin-bottom:6px">TIMESTAMP</div>
+          <div style="font:500 13px 'IBM Plex Mono',monospace;color:#E7EAF0">2026-07-17 14:22:08 UTC</div>
+        </div>
+        <div style="margin-top:auto;padding-top:16px;border-top:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:space-between">
+          <div style="display:flex;align-items:center;gap:8px"><div style="width:6px;height:6px;border-radius:50%;background:#2ECC9A"></div><div style="font:600 11px 'IBM Plex Mono',monospace;color:#2ECC9A;letter-spacing:.04em">CONFIRMED ON-CHAIN</div></div>
+          <div style="font:600 12px 'Inter';color:#93A9F0">View on explorer →</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>
+
+</x-dc>
+</body>
+</html>

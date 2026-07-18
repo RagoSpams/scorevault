@@ -12,6 +12,7 @@ import {
   type AssessmentDerivedState,
   type AssessmentContract,
   type AssessmentProviders,
+  type AssessmentSubmissionReceipt,
   type DeployedAssessmentContract,
   assessmentPrivateStateKey,
 } from './assessment-common-types.js';
@@ -27,7 +28,7 @@ export interface DeployedAssessmentAPI {
   readonly deployedContractAddress: ContractAddress;
   readonly state$: Observable<AssessmentDerivedState>;
 
-  submitAssessment: () => Promise<void>;
+  submitAssessment: () => Promise<AssessmentSubmissionReceipt>;
 }
 
 /**
@@ -84,7 +85,7 @@ export class AssessmentAPI implements DeployedAssessmentAPI {
    * them out of private state, scores them against the hardcoded answer key, and only the
    * resulting pass/fail boolean is disclosed to the ledger.
    */
-  async submitAssessment(): Promise<void> {
+  async submitAssessment(): Promise<AssessmentSubmissionReceipt> {
     this.logger?.info('submittingAssessment');
 
     const txData = await this.deployedContract.callTx.submitAssessment();
@@ -96,6 +97,15 @@ export class AssessmentAPI implements DeployedAssessmentAPI {
         blockHeight: txData.public.blockHeight,
       },
     });
+
+    // Only these specific non-sensitive public fields are pulled out - the
+    // rest of `txData` (private witness/transcript data) is deliberately
+    // never propagated past this point.
+    return {
+      txHash: String(txData.public.txHash),
+      blockHeight: txData.public.blockHeight,
+      blockTimestamp: txData.public.blockTimestamp,
+    };
   }
 
   /**

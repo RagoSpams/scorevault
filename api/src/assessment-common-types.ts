@@ -61,3 +61,17 @@ export type DeployedAssessmentContract = FoundContract<AssessmentContract>;
 export type AssessmentDerivedState = {
   readonly passed: boolean;
 };
+
+/**
+ * The real, on-chain data produced by submitting an assessment - a subset of
+ * the SDK's `FinalizedTxData`, containing only its non-privacy-sensitive
+ * public fields (never the transaction's private/witness data).
+ *
+ * @public
+ */
+export type AssessmentSubmissionReceipt = {
+  readonly txHash: string;
+  readonly blockHeight: number;
+  /** Unix timestamp (seconds) of the block the transaction was included in. */
+  readonly blockTimestamp: number;
+};

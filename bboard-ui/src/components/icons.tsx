@@ -48,3 +48,10 @@ export const BoltIcon: React.FC = () => (
     <polygon points="13 2 3 14 11 14 10 22 21 10 13 10 13 2" />
   </svg>
 );
+
+export const BellIcon: React.FC = () => (
+  <svg {...strokeProps}>
+    <path d="M6 8a6 6 0 0 1 12 0c0 5 2 6 2 6H4s2-1 2-6" />
+    <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0" />
+  </svg>
+);
